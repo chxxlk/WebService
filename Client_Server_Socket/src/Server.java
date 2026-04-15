@@ -17,7 +17,7 @@ public class Server {
                 System.out.println("Client Connected");
 
                 // karena ada blocking perlu pakai thread
-                // dengan thread bisa handle banyak client sekaligus tanpa perlu nunggu 1 beres dulu
+                // dengan thread bisa handle banyak client sekaligus ga perlu nunggu 1 beres dulu
                 new Thread(() -> {
                     try {
                         // membaca dari client
