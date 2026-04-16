@@ -30,7 +30,7 @@ public class Client {
 
                 if (response == null) {
                     System.out.println("Server menutup koneksi");
-                    break;
+                    break; // keluar dari loop
                 }
 
                 System.out.println("Server response: " + response);
@@ -40,7 +40,7 @@ public class Client {
                     break;
                 }
 
-                System.out.print("Masukan Perintah: ");
+                System.out.print("Input: ");
             }
         } catch (IOException e) {
             System.err.println("IOException: " + e.getMessage());

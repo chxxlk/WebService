@@ -7,6 +7,7 @@ import java.net.Socket;
 
 public class Server {
 
+    // insialisasi state
     private enum State {
         NORMAL, WAITING_FOR_OP, WAITING_FOR_NUMS
     }
@@ -39,7 +40,7 @@ public class Server {
                         while ((inputLine = in.readLine()) != null) {
                             String input = inputLine.trim();
                             System.out.println("Received from client: " + input);
-
+                            // jika state NORMAL maka jalankan program seperti biasa
                             if (curentState == State.NORMAL) {
                                 String[] parts = input.split(" ", 2);
                                 String command = parts[0].toUpperCase();
@@ -56,6 +57,7 @@ public class Server {
                                     case "KALKULATOR":
                                         out.println(
                                                 "Menu Kalkulator: 1. Tambah 2. Kurang 3. Kali 4. Bagi. Pilih angka (1-4): ");
+                                        // ubah sate ke WAIRING_FOR_OP (tambah, kurang, kali, bagi)
                                         curentState = State.WAITING_FOR_OP;
                                         break;
 
@@ -69,10 +71,12 @@ public class Server {
                                         out.print("ERROR: Perintah '" + command + "' tidak dikenali.");
                                         break;
                                 }
+                                // jika state sekarang WAITING_FOR_OP client bisa memasukan operator.
                             } else if (curentState == State.WAITING_FOR_OP) {
                                 selectedOp = input;
                                 out.println("Masukan 2 angka dipisahkan spasi (contoh: 5 10): ");
                                 curentState = State.WAITING_FOR_NUMS;
+                                // jika state WAITING_FOR_NUMS client sekarang bisa memasukan angka untk dihitung.
                             } else if (curentState == State.WAITING_FOR_NUMS) {
                                 try {
                                     String[] numbers = input.split(" ");
@@ -107,6 +111,7 @@ public class Server {
                                 } catch (Exception e) {
                                     out.println("Format salah, Kirim 2 angka (contoh: 10 5)");
                                 }
+                                // setelah semua perhitungan selesai state akan kembali normal sehinggal client bisa mengakses menu utama.
                                 curentState = State.NORMAL;
                             }
 
