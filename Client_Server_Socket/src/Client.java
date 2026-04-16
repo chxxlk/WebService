@@ -5,12 +5,18 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class Client {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         String serverAddress = "localhost";
         int port = 12345;
 
-        try(Socket socket = new Socket(serverAddress, port)){
+        try (Socket socket = new Socket(serverAddress, port)) {
             System.out.println("Connected to server");
+
+            System.out.println("Protokol Request-Response");
+            System.out.println("- HALO <nama> : Sapaan dari server");
+            System.out.println("- KALKULATOR  : Perhitungan dasar (+, -, *, /)");
+            System.out.println("- KELUAR      : Menutup Koneksi");
+            System.out.print("Masukan Perintah: ");
 
             // mengirim data ke server
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
@@ -18,12 +24,25 @@ public class Client {
             BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
 
             String userInputLine;
-            while((userInputLine = userInput.readLine()) != null){
-                out.println(userInputLine); //mengirim data ke server
+            while ((userInputLine = userInput.readLine()) != null) {
+                out.println(userInputLine); // mengirim data ke server
                 String response = in.readLine(); // membaca response dari server
+
+                if (response == null) {
+                    System.out.println("Server menutup koneksi");
+                    break;
+                }
+
                 System.out.println("Server response: " + response);
+
+                if (userInputLine.trim().equalsIgnoreCase("KELUAR")) {
+                    System.out.println("Memutuskan Koneksi dari server...");
+                    break;
+                }
+
+                System.out.print("Masukan Perintah: ");
             }
-        }catch(IOException e){
+        } catch (IOException e) {
             System.err.println("IOException: " + e.getMessage());
         }
     }
