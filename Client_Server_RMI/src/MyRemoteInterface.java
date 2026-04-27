@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 public interface MyRemoteInterface extends Remote {
   String sayHello(String name) throws RemoteException;
 
-  // String info(String height, String weight) throws RemoteException;
+  String authUser(String username, String password) throws RemoteException;
+
   String info(int height, int weight) throws RemoteException;
 }
