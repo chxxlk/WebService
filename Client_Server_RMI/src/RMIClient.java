@@ -15,12 +15,12 @@ public class RMIClient {
       System.out.print("Password: ");
       String pass = input.nextLine();
 
-      String authUser = stub.authUser(user, pass);
+      // String authUser = stub.authUser(user, pass);
 
-      System.out.print("Masukan Nama : ");
-      String name = input.nextLine();
+      // System.out.print("Masukan Nama : ");
+      // String name = input.nextLine();
 
-      String response = stub.sayHello(name);
+      String response = stub.sayHello(user, pass);
 
       System.out.print("Masukan Tinggi dan Berat (Pisahkan dengan spasi) : ");
       String data = input.nextLine();
@@ -34,7 +34,7 @@ public class RMIClient {
 
       String responseInfo = stub.info(height, weight);
 
-      System.out.println(authUser);
+      // System.out.println(authUser);
       System.out.println("Response from Server : \n" + response + responseInfo);
 
     } catch (RemoteException e) {
