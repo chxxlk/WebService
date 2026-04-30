@@ -23,6 +23,9 @@ public class CalculatorImplementation extends UnicastRemoteObject implements Cal
 
   @Override
   public double divide(double a, double b) throws RemoteException {
+    if (b == 0) {
+      throw new RemoteException("Error: Pembagian dengan nol tidak diperbolehkan.");
+    }
     return a / b;
   }
 }

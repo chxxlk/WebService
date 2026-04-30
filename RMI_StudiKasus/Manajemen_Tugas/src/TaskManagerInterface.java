@@ -8,5 +8,7 @@ public interface TaskManagerInterface extends Remote {
 
   void removeTask(String task) throws RemoteException;
 
+  void removeTaskByIndex(int index) throws RemoteException;
+
   List<String> getTask() throws RemoteException;
 }

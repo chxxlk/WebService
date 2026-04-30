@@ -1,20 +1,20 @@
 # AGENTS.md
 
-Guidance for OpenCode sessions in this repo.
+## Modules
+- `Client_Server_RMI` — Java RMI, port 1099, service name `HelloService`
+- `Client_Server_Socket` — Socket server, port 12345, state machine (NORMAL/WAITING_FOR_OP/WAITING_FOR_NUMS)
+- `RMI_StudiKasus/` — Two RMI subprojects (no VS Code config):
+  - `Kalkultor_Terdistribusi` — service name `calculatorservice`
+  - `Manajemen_Tugas` — service name `TaskManager`
 
-## Project Overview
-Java workspace with two independent modules:
-- `Client_Server_RMI`: Java RMI client-server
-- `Client_Server_Socket`: Socket-based client-server
+## Build & Run
+No Maven/Gradle. Uses VS Code Java tooling.
+- `Client_Server_RMI/.vscode/settings.json` and `Client_Server_Socket/.vscode/settings.json` set `src/` and `bin/` paths
+- `RMI_StudiKasus` subprojects have no `.vscode/` config; they need manual setup or config creation
+- Compiled `.class` files in `bin/` are committed (no `.gitignore`)
+- No `lib/` directories present; no external JAR dependencies
 
-No Maven/Gradle build tooling; uses VS Code Java tooling.
-
-## Module Structure
-Each module uses VS Code Java defaults:
-- `src/`: Source code
-- `bin/`: Compiled `.class` files (committed to repo, no `.gitignore`)
-- `.vscode/settings.json`: Configures source/output paths and library references
-
-## Notes
-- No test framework or test files present
-- Avoid adding build tools unless explicitly requested
+## Constraints
+- No test framework
+- Do not add build tools unless explicitly requested
+- `RMI_StudiKasus/.gitignore` references Gradle paths but no Gradle files exist
