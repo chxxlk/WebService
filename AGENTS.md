@@ -1,22 +1,20 @@
 # AGENTS.md
 
-This file helps Autohand understand how to work with this project.
+Guidance for OpenCode sessions in this repo.
 
 ## Project Overview
+Java workspace with two independent modules:
+- `Client_Server_RMI`: Java RMI client-server
+- `Client_Server_Socket`: Socket-based client-server
 
+No Maven/Gradle build tooling; uses VS Code Java tooling.
 
-## Code Style
+## Module Structure
+Each module uses VS Code Java defaults:
+- `src/`: Source code
+- `bin/`: Compiled `.class` files (committed to repo, no `.gitignore`)
+- `.vscode/settings.json`: Configures source/output paths and library references
 
-- Follow existing patterns in the codebase
-- Use meaningful variable and function names
-- Add comments for complex logic
-- Keep functions focused and small
-
-## Constraints
-
-- Do not modify files outside the project directory
-- Ask before making breaking changes
-- Prefer editing existing files over creating new ones
-- Do not delete files without confirmation
-- Keep dependencies minimal - avoid adding new ones without good reason
-- Do not commit sensitive data (API keys, secrets, credentials)
+## Notes
+- No test framework or test files present
+- Avoid adding build tools unless explicitly requested
