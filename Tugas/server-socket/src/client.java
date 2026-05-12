@@ -17,9 +17,13 @@ public class client {
       System.out.println("SELESAI     -> Keluar");
       System.out.println("===========================================");
 
-      PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-      BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-      BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
+      PrintWriter out = new PrintWriter(
+          clientSocket.getOutputStream(),
+          true);
+      BufferedReader in = new BufferedReader(
+          new InputStreamReader(clientSocket.getInputStream()));
+      BufferedReader userInput = new BufferedReader(
+          new InputStreamReader(System.in));
       String userInputLine;
 
       while (true) {
@@ -28,8 +32,8 @@ public class client {
         out.println(userInputLine);
         String response = in.readLine();
         System.out.println("server: " + response);
+
         if (userInputLine.equalsIgnoreCase("SELESAI")) {
-          System.out.println(in.readLine());
           System.out.println("Koneksi ditutup");
           break;
         }

@@ -6,7 +6,7 @@ public class server {
     int port = 12345;
 
     try (ServerSocket serverSocket = new ServerSocket(port)) {
-      System.out.println("Multi-client Server started on port " + port);
+      System.out.println("Server started on port " + port);
 
       while (true) {
         Socket clientSocket = serverSocket.accept();
@@ -32,8 +32,11 @@ class ClientHandler implements Runnable {
   public void run() {
     try (BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)) {
+
       String inputLine;
+
       while ((inputLine = in.readLine()) != null) {
+        System.out.println("Client: " + inputLine);
         String[] userInput = inputLine.split("\\|");
         String order = userInput[0].toUpperCase();
 
