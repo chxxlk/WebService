@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class LibraryClient {
 
-  public static void main(String[] args) {
+    public static void main(String[] args) {
         try {
             LibraryInterface lib = (LibraryInterface) Naming.lookup(
                 "//localhost/libraryService"
@@ -107,7 +107,6 @@ public class LibraryClient {
                                 int idPinjam = Integer.parseInt(idPinjamStr);
                                 System.out.println("\nResponse Server:");
                                 System.out.println(
-                O
                                     lib.pinjamBuku(idPinjam, peminjam)
                                 );
                             } catch (NumberFormatException e) {

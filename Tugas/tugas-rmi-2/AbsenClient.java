@@ -3,9 +3,11 @@ import java.rmi.RemoteException;
 import java.util.Scanner;
 
 public class AbsenClient {
+
   public static void main(String[] args) {
     try {
-      AbsenInterface absen = (AbsenInterface) Naming.lookup("//localhost/absenService");
+      AbsenInterface absen = (AbsenInterface) Naming.lookup(
+          "//localhost/absenService");
       Scanner scanner = new Scanner(System.in);
 
       System.out.println("=== System Absen Client ===");
@@ -32,7 +34,8 @@ public class AbsenClient {
           System.out.println("Login Berhasil");
           System.out.println("Hallo " + username);
         } else {
-          System.out.println("Login gagal: Username atau Password salah \n");
+          System.out.println(
+              "Login gagal: Username atau Password salah \n");
         }
       }
 
@@ -64,7 +67,8 @@ public class AbsenClient {
               String studentName = scanner.nextLine();
               System.out.print("Masukan NIM : ");
               String studentId = scanner.nextLine();
-              System.out.println(absen.addStudents(studentName, studentId));
+              System.out.println(
+                  absen.addStudents(studentName, studentId));
               break;
             case 2:
               System.out.println("\033[2J\033[H");
@@ -98,7 +102,9 @@ public class AbsenClient {
               break;
           }
         } catch (RemoteException e) {
-          System.out.println("Error: Gagal berkomunikasi dengan server - " + e.getMessage());
+          System.out.println(
+              "Error: Gagal berkomunikasi dengan server - " +
+                  e.getMessage());
         }
       }
     } catch (Exception e) {
