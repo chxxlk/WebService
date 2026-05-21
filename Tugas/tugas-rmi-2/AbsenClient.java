@@ -85,10 +85,56 @@ public class AbsenClient {
             case 4:
               System.out.println("\033[2J\033[H");
               System.out.println("=== Hapus Mahasiswa ===");
+              System.out.print("Masukan ID Mahasiswa yang ingin dihapus: ");
+              String deleteInput = scanner.nextLine();
+              int deleteId;
+              try {
+                deleteId = Integer.parseInt(deleteInput);
+              } catch (NumberFormatException e) {
+                System.out.println("Error: Masukkan angka yang valid!");
+                break;
+              }
+              System.out.println(absen.removeStudent(deleteId));
               break;
             case 5:
               System.out.println("\033[2J\033[H");
               System.out.println("=== Absen Mahasiswa ===");
+              System.out.println("1. Absen Mahasiswa");
+              System.out.println("2. Lihat Daftar Absen");
+              System.out.println("3. Kembali");
+              System.out.print("Pilih Menu: ");
+              String absenInput = scanner.nextLine();
+              int absenCommand;
+              try {
+                absenCommand = Integer.parseInt(absenInput);
+              } catch (NumberFormatException e) {
+                System.out.println("Error: Masukkan angka yang valid!");
+                break;
+              }
+              switch (absenCommand) {
+                case 1:
+                  System.out.print("Masukan ID Mahasiswa: ");
+                  String absenIdInput = scanner.nextLine();
+                  int absenId;
+                  try {
+                    absenId = Integer.parseInt(absenIdInput);
+                  } catch (NumberFormatException e) {
+                    System.out.println("Error: Masukkan angka yang valid!");
+                    break;
+                  }
+                  System.out.println(absen.markAttendance(absenId));
+                  break;
+                case 2:
+                  System.out.println("\033[2J\033[H");
+                  System.out.println("=== Daftar Absen ===");
+                  System.out.println(absen.showAttendance());
+                  break;
+                case 3:
+                  break;
+                default:
+                  System.out.println("Input Salah (Pilih angka 1-3)");
+                  break;
+              }
               break;
             case 6:
               System.out.println("\033[2J\033[H");

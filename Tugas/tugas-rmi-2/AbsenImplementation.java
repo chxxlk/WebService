@@ -1,5 +1,7 @@
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +10,7 @@ public class AbsenImplementation
     implements AbsenInterface {
 
   private List<Students> students;
+  private List<Attendance> attendanceRecords;
 
   static class Students implements java.io.Serializable {
 
@@ -21,6 +24,22 @@ public class AbsenImplementation
     }
   }
 
+  static class Attendance implements java.io.Serializable {
+    int studentId;
+    String studentName;
+    String studentNim;
+    String timestamp;
+    String status;
+
+    public Attendance(int studentId, String studentName, String studentNim, String status) {
+      this.studentId = studentId;
+      this.studentName = studentName;
+      this.studentNim = studentNim;
+      this.status = status;
+      this.timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+    }
+  }
+
   private int nextId;
   private static final String VALID_USER = "admin";
   private static final String VALID_PASS = "admin123";
@@ -28,6 +47,7 @@ public class AbsenImplementation
   protected AbsenImplementation() throws RemoteException {
     super();
     students = new ArrayList<>();
+    attendanceRecords = new ArrayList<>();
     nextId = 1;
   }
 
@@ -114,5 +134,76 @@ public class AbsenImplementation
 
     return sb.toString();
   }
-  // TODO: add other implements
+
+  // Hapus Mahasiswa
+  @Override
+  public String removeStudent(int id) throws RemoteException {
+    if (students.isEmpty()) {
+      return "Error: Tidak ada mahasiswa untuk dihapus!";
+    }
+
+    Students target = null;
+    for (Students s : students) {
+      if (s.id == id) {
+        target = s;
+        break;
+      }
+    }
+
+    if (target == null) {
+      return "Error: Mahasiswa dengan ID " + id + " tidak ditemukan!";
+    }
+
+    students.remove(target);
+    return "Mahasiswa \"" + target.name + "\" (ID: " + target.id + ") berhasil dihapus.";
+  }
+
+  // Absen Mahasiswa
+  @Override
+  public String markAttendance(int studentId) throws RemoteException {
+    if (students.isEmpty()) {
+      return "Error: Tidak ada mahasiswa terdaftar!";
+    }
+
+    Students target = null;
+    for (Students s : students) {
+      if (s.id == studentId) {
+        target = s;
+        break;
+      }
+    }
+
+    if (target == null) {
+      return "Error: Mahasiswa dengan ID " + studentId + " tidak ditemukan!";
+    }
+
+    Attendance record = new Attendance(target.id, target.name, target.studentIds, "Hadir");
+    attendanceRecords.add(record);
+    return "Absen berhasil: " + target.name + " (" + target.studentIds + ") - Hadir pada " + record.timestamp;
+  }
+
+  // Lihat Daftar Absen
+  @Override
+  public String showAttendance() throws RemoteException {
+    if (attendanceRecords.isEmpty()) {
+      return "Daftar Absensi\nBelum ada data absensi.";
+    }
+
+    StringBuilder sb = new StringBuilder();
+    sb.append("Daftar Absensi\n");
+    int index = 1;
+    for (Attendance a : attendanceRecords) {
+      sb.append(index++)
+          .append(". ")
+          .append(a.studentName)
+          .append(" - ")
+          .append(a.studentNim)
+          .append(" | Status: ")
+          .append(a.status)
+          .append(" | Waktu: ")
+          .append(a.timestamp);
+      sb.append("\n");
+    }
+    return sb.toString();
+  }
 }
